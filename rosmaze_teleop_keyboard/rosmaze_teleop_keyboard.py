@@ -106,7 +106,7 @@ def main():
     if get_namespace == '':
         pub = node.create_publisher(geometry_msgs.msg.Twist, 'cmd_vel', 10)
     else:
-        pub = node.create_publisher(geometry_msgs.msg.Twist, '{}/cmd_vel'.formar(get_namespace), 10)
+        pub = node.create_publisher(geometry_msgs.msg.Twist, '{}/cmd_vel'.format(get_namespace), 10)
 
     linear_x = 0.10
     linear_y = 0.10
