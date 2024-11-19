@@ -1,4 +1,5 @@
 import sys
+import os
 
 import geometry_msgs.msg
 import rclpy
@@ -9,6 +10,8 @@ else:
     import termios
     import tty
 
+# in .bashrc --> export robot_namespace='robot1'
+get_namespace = os.environ.get('robot_namespace')
 
 msg = """
 
@@ -99,7 +102,11 @@ def main():
     rclpy.init()
 
     node = rclpy.create_node('rosmaze_teleop_keyboard')
-    pub = node.create_publisher(geometry_msgs.msg.Twist, 'cmd_vel', 10)
+
+    if get_namespace == '':
+        pub = node.create_publisher(geometry_msgs.msg.Twist, 'cmd_vel', 10)
+    else:
+        pub = node.create_publisher(geometry_msgs.msg.Twist, '{}/cmd_vel'.formar(get_namespace), 10)
 
     linear_x = 0.10
     linear_y = 0.10
